@@ -24,6 +24,6 @@ public class Tribunal {
     private String competence;
     private String composition;
     private String proceduree;
-    //private String image;
+    private String image;
 
 }

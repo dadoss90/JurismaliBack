@@ -20,5 +20,5 @@ public class Renseignement {
     private Long idRen;
     private String titre;
     private String description;
-    //private String videos ;
+    private String videos ;
 }

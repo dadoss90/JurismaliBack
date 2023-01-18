@@ -17,14 +17,9 @@ public class SignupRequest {
   @Email
   private String email;
 
-
   @NotBlank
   @Size(min = 3, max = 80)
   private String nomcomplet;
-
-  @NotBlank
-  @Size(min = 3, max = 25)
-  private String photo;
 
   @NotBlank
   @Size(min = 3, max = 120)
@@ -33,6 +28,12 @@ public class SignupRequest {
   @NotBlank
   @Size(min = 8, max = 8)
   private String numerotelephone;
+
+  @NotBlank
+  @Size(min = 8, max = 8)
+  private String genre;
+
+
 
 
   private Set<String> role;

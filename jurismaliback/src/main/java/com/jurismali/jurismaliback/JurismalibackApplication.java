@@ -34,6 +34,8 @@ public class JurismalibackApplication implements CommandLineRunner {
 			roleRepository.save(new Role(ERole.ROLE_ADMIN));
 			//roleRepository.save(new Role(ERole.ROLE_FORMATEUR));
 			roleRepository.save(new Role(ERole.ROLE_USER));
+			roleRepository.save(new Role(ERole.ROLE_AVOCAT));
+			roleRepository.save(new Role(ERole.ROLE_SUPERADMIN));
 		}
 		if (utilisateursRepository.findAll().size() == 0){
 			Set<Role> roles = new HashSet<>();

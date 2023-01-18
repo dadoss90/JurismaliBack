@@ -3,6 +3,7 @@ package com.jurismali.jurismaliback.Service;
 
 import com.jurismali.jurismaliback.Models.Tribunal;
 import com.jurismali.jurismaliback.Repository.TribunalRepo;
+import com.jurismali.jurismaliback.payload.request.MessageResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,19 @@ public class TribunalServiceImpl implements TribunalService{
 
     @Override
     public Tribunal creer(Tribunal tribunal) {
+
         return tribunalRepo.save(tribunal);
+    }
+
+    @Override
+    public MessageResponse addtribunal(Tribunal tribunal) {
+        if (tribunalRepo.existsByNom(tribunal.getNom()) || tribunal.getNom().isEmpty()) {
+            MessageResponse message = new MessageResponse("Désolé ! Ce tribunal existe déjà ou le champ nom n'est pas remplis ! ");
+            return message;
+        }
+        tribunalRepo.save(tribunal);
+        MessageResponse message = new MessageResponse("Tribunal ajouter avec succes ! ");
+        return message;
     }
 
     @Override

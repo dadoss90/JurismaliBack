@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RenseignementRepo extends JpaRepository<Renseignement,Long> {
 
+         Boolean existsByTitre(String titre);
 }

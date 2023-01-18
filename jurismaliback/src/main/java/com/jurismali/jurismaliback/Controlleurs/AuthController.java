@@ -61,7 +61,7 @@ public class AuthController {
   @PostMapping("/signin")
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-    String url = "C:/Users/mkkeita/Desktop/projects/angular/interfaceMaliTourist/src/assets/images";
+    String url = "C:/Users/mtra.traore/Desktop/ProjetODC/jurismalifront/src/assets/images/Back-end";
 
     /*
     String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
@@ -125,23 +125,11 @@ public class AuthController {
 
   //@PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/signup")//@valid s'assure que les données soit validées
-  public ResponseEntity<?> registerUser(@Valid @RequestParam(value = "file", required = true) MultipartFile file,
-                                        @Valid  @RequestParam(value = "donneesuser") String donneesuser) throws IOException {
+  public ResponseEntity<?> registerUser(@Valid  @RequestParam(value = "donneesuser") String donneesuser) throws IOException {
 
-    //chemin de stockage des images
-    String url = "C:/Users/mkkeita/Desktop/projects/medias/images";
-
-    //recupere le nom de l'image
-    String nomfile = StringUtils.cleanPath(file.getOriginalFilename());
-    System.out.println(nomfile);
-
-    //envoie le nom, url et le fichier à la classe ConfigImages qui se chargera de sauvegarder l'image
-    ConfigImages.saveimg(url, nomfile, file);
 
     //converssion du string reçu en classe SignupRequest
     SignupRequest signUpRequest = new JsonMapper().readValue(donneesuser, SignupRequest.class);
-
-    signUpRequest.setPhoto(nomfile);
 
     if (utilisateursRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity
@@ -160,8 +148,8 @@ public class AuthController {
     // Create new user's account
     Utilisateurs utilisateurs = new Utilisateurs(signUpRequest.getUsername(),
                signUpRequest.getEmail(),
-               encoder.encode(signUpRequest.getPassword()), signUpRequest.getAdresse(),
-                signUpRequest.getNomcomplet(), signUpRequest.getPhoto()
+               encoder.encode(signUpRequest.getPassword()),
+                signUpRequest.getNomcomplet(), signUpRequest.getAdresse(),signUpRequest.getNumerotelephone(),signUpRequest.getGenre()
             );
 
     //on recupere le role de l'user dans un tableau ordonné de type string
@@ -181,6 +169,14 @@ public class AuthController {
           Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN);
           roles.add(adminRole);
 
+          case "avocat"://si le role est à égale à admin
+            Role avocatRole = roleRepository.findByName(ERole.ROLE_AVOCAT);
+            roles.add(avocatRole);
+
+          case "superadmin"://si le role est à égale à admin
+            Role superadminRole = roleRepository.findByName(ERole.ROLE_SUPERADMIN);
+            roles.add(superadminRole);
+
           break;
         default://dans le cas écheant
 
@@ -193,8 +189,9 @@ public class AuthController {
 
     //on ajoute le role au collaborateur
     utilisateurs.setRoles(roles);
+    utilisateurs.setPhoto("http://127.0.0.1/jurismali/files/utilisateur/icon.png"); // http://127.0.0.1/jurismali/files/utilisateur/icon.png
     utilisateursRepository.save(utilisateurs);
 
-    return ResponseEntity.ok(new MessageResponse("Collaborateur enregistré avec succès!"));
+    return ResponseEntity.ok(new MessageResponse("Utilisateur enregistré avec succès!"));
   }
 }

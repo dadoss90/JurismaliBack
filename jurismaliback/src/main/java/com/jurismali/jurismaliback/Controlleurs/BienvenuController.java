@@ -46,7 +46,7 @@ public class BienvenuController {
   @PreAuthorize("hasRole('ADMIN')")
   public String adminAccess() {
 
-    return "Bienvenue admin.";
+    return "Bienvenue Moussoudou.";
   }
 
 }
