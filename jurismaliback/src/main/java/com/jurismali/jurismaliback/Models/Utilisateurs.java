@@ -41,11 +41,9 @@ public class Utilisateurs {
   @Size(max = 80)
   private String nomcomplet;
 
-  @NotBlank
   @Size(max = 25)
   private String photo;
 
-  @NotBlank
   @Size(max = 120)
   private String adresse;
 

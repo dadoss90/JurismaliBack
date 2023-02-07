@@ -1,17 +1,27 @@
 package com.jurismali.jurismaliback.Service;
 
+import com.jurismali.jurismaliback.Models.ERole;
+import com.jurismali.jurismaliback.Models.Role;
 import com.jurismali.jurismaliback.Models.Utilisateurs;
+import com.jurismali.jurismaliback.Repository.RoleRepository;
 import com.jurismali.jurismaliback.Repository.UtilisateursRepository;
 import com.jurismali.jurismaliback.payload.request.MessageResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class UtilisateurServiceImpl implements UtilisateurService{
 
     @Autowired
     private UtilisateursRepository utilisateursRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     @Override
@@ -42,6 +52,13 @@ public class UtilisateurServiceImpl implements UtilisateurService{
 //                    u.setPhoto(utilisateurs.getPhoto());
                     return  utilisateursRepository.save(u);
                 }).orElseThrow(() -> new RuntimeException("Utilisateur non trouvé !!"));
+    }
+
+    @Override
+    public List<Utilisateurs> findUtilisateurParRole(ERole roleName) {
+        Role role = roleRepository.findByName(roleName);
+        List<Utilisateurs> utilisateursList= role.getUtilisateurs();
+        return utilisateursList;
     }
 
 }

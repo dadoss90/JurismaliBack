@@ -135,6 +135,9 @@ public class WebSecurityConfig {
             .antMatchers("/api/roles/**").permitAll()
             .antMatchers("/api/collaborateur/**").permitAll()
             .antMatchers("/utilisateur/**").permitAll()
+            .antMatchers("/renseignement/**").permitAll()
+            .antMatchers("/demande/**").permitAll()
+
         .anyRequest().authenticated();
            // .and()
             //.oauth2Login();

@@ -1,5 +1,7 @@
 package com.jurismali.jurismaliback.payload.request;
 
+import lombok.Data;
+
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {

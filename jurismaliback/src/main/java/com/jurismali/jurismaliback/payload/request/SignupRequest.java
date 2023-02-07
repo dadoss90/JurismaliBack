@@ -8,28 +8,22 @@ import java.util.Set;
 @Data
 public class SignupRequest {
 
-  @NotBlank
   @Size(min = 3, max = 20)
   private String username;
 
-  @NotBlank
   @Size(min = 3, max = 50)
   @Email
   private String email;
 
-  @NotBlank
   @Size(min = 3, max = 80)
   private String nomcomplet;
 
-  @NotBlank
   @Size(min = 3, max = 120)
   private String adresse;
 
-  @NotBlank
   @Size(min = 8, max = 8)
   private String numerotelephone;
 
-  @NotBlank
   @Size(min = 8, max = 8)
   private String genre;
 
@@ -38,7 +32,6 @@ public class SignupRequest {
 
   private Set<String> role;
 
-  @NotBlank
   @Size(min = 6, max = 40)
   private String password;
 

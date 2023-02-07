@@ -1,6 +1,7 @@
 package com.jurismali.jurismaliback.Service;
 
 import com.jurismali.jurismaliback.Models.Dossier;
+import com.jurismali.jurismaliback.Models.DossierEtat;
 import com.jurismali.jurismaliback.Repository.DossierRepo;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,25 @@ public class DossierServiceImpl implements DossierService{
     @Autowired
     private final DossierRepo dossierRepo;
 
+
+    @Override
+    public Dossier valideDossier(Long idDoss) {
+        Dossier dossier = dossierRepo.findDossierByIdDoss(idDoss);
+        dossier.setDossierStatus(DossierEtat.TERMINER);
+        return dossierRepo.save(dossier);
+    }
+
+    @Override
+    public Dossier nonvalide(Long idDoss) {
+        Dossier dossier = dossierRepo.findDossierByIdDoss(idDoss);
+        dossier.setDossierStatus(DossierEtat.REJETTER);
+        return dossierRepo.save(dossier);
+    }
+
+
     @Override
     public Dossier creer(Dossier dossier) {
+        dossier.setDossierStatus(DossierEtat.EN_COURS);
         return dossierRepo.save(dossier);
     }
 
@@ -28,9 +46,10 @@ public class DossierServiceImpl implements DossierService{
     public Dossier modifier(Long idDoss, Dossier dossier) {
         return dossierRepo.findById(idDoss)
                 .map(d->{
-                    d.setClient(dossier.getClient());
-                    d.setStatut(dossier.getStatut());
-                    // Video
+                    d.setImageidentite(dossier.getImageidentite());
+                    d.setDescription(dossier.getDescription());
+                    d.setNumero(dossier.getNumero());
+                    d.setEmail(dossier.getEmail());
                     return dossierRepo.save(d);
                 }).orElseThrow(() -> new RuntimeException("Dossier non trouvable"));
     }

@@ -1,5 +1,6 @@
 package com.jurismali.jurismaliback.Controlleurs;
 
+import com.jurismali.jurismaliback.Models.ERole;
 import com.jurismali.jurismaliback.Models.SaveFile;
 import com.jurismali.jurismaliback.Models.Utilisateurs;
 import com.jurismali.jurismaliback.Service.UtilisateurService;
@@ -11,9 +12,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("utilisateur")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class UtilisateurControlleur {
 
     @Autowired
@@ -37,4 +41,13 @@ public class UtilisateurControlleur {
     public Utilisateurs modifier(@PathVariable Long id, @RequestBody Utilisateurs utilisateurs) {
         return utilisateurService.modifier(id, utilisateurs);
     }
+    @GetMapping("/avocatListe")
+    public List<Utilisateurs> getAvocatListes(){
+        return utilisateurService.findUtilisateurParRole(ERole.ROLE_AVOCAT);
+    }
+    @GetMapping("/clientListe")
+    public List<Utilisateurs> getclientListes(){
+        return utilisateurService.findUtilisateurParRole(ERole.ROLE_USER);
+    }
+
 }

@@ -33,8 +33,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-//@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost:4200","http://localhost:8200","http://localhost:8100" }, maxAge = 3600, allowCredentials="true")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -125,7 +125,7 @@ public class AuthController {
 
   //@PreAuthorize("hasRole('ADMIN')")
   @PostMapping("/signup")//@valid s'assure que les données soit validées
-  public ResponseEntity<?> registerUser(@Valid  @RequestParam(value = "donneesuser") String donneesuser) throws IOException {
+  public ResponseEntity<?> registerUser(@RequestParam(value = "donneesuser") String donneesuser) throws IOException {
 
 
     //converssion du string reçu en classe SignupRequest
@@ -190,6 +190,7 @@ public class AuthController {
     //on ajoute le role au collaborateur
     utilisateurs.setRoles(roles);
     utilisateurs.setPhoto("http://127.0.0.1/jurismali/files/utilisateur/icon.png"); // http://127.0.0.1/jurismali/files/utilisateur/icon.png
+    System.out.println("utilisateur" +utilisateurs.getUsername());
     utilisateursRepository.save(utilisateurs);
 
     return ResponseEntity.ok(new MessageResponse("Utilisateur enregistré avec succès!"));

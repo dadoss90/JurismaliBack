@@ -1,11 +1,20 @@
 package com.jurismali.jurismaliback.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@Setter
+@Getter
 @AllArgsConstructor
 public class Role {
   @Id
@@ -15,6 +24,10 @@ public class Role {
   @Enumerated(EnumType.STRING)
   @Column(length = 20)
   private ERole name;
+
+  @ManyToMany(mappedBy = "roles")
+  @JsonIgnore
+  private List<Utilisateurs> utilisateurs = new ArrayList<>();
 
   public Role() {
 
