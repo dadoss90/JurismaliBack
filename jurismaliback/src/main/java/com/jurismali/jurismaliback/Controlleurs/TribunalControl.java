@@ -18,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("tribunal")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class TribunalControl {
 
     @Autowired

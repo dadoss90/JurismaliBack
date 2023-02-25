@@ -20,8 +20,11 @@ public class Tribunal {
     private Long id;
     private String nom;
     private String adresse;
+    @Lob
     private String description;
+    @Lob
     private String competence;
+    @Lob
     private String composition;
     private String proceduree;
     private String image;

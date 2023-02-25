@@ -1,12 +1,15 @@
 package com.jurismali.jurismaliback.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -60,6 +63,14 @@ public class Utilisateurs {
         joinColumns = @JoinColumn(name = "user_id"), 
         inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
+
+  @JsonIgnore
+  @OneToMany(mappedBy = "utilisateurs")
+  List<Demande> mescreations=new ArrayList<>();
+
+  /*@JsonIgnore
+  @OneToMany(mappedBy = "demandeur")
+  List<Demande> mesdemandes=new ArrayList<>();*/
 
   public Utilisateurs() {
   }

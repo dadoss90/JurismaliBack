@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("renseignement")
 @AllArgsConstructor
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RenseigneControl {
 
     @Autowired

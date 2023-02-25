@@ -137,6 +137,7 @@ public class WebSecurityConfig {
             .antMatchers("/utilisateur/**").permitAll()
             .antMatchers("/renseignement/**").permitAll()
             .antMatchers("/demande/**").permitAll()
+            .antMatchers("/tribunal/**").permitAll()
 
         .anyRequest().authenticated();
            // .and()
